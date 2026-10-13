@@ -1,0 +1,25 @@
+# Python / Virtual Environment
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Environment Variables (Секретные конфиги)
+.env
+!.env.example
+
+# IDE / Editors
+.vscode/
+.idea/
+*.swp
+
+# Database / Storage (локальные логи и базы)
+*.db
+*.sqlite3
+logs/
+/var/log/
+
+# Docker
+.docker/
