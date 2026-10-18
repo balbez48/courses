@@ -4,7 +4,9 @@ from builders import CourseLessonBuilder
 builder = CourseLessonBuilder()
 lesson = (
     builder
+    .set_course_id(101)
     .set_form_data(
+        
         title='Python',
         resource='www.psu.ru',
         homework='Вывести в консоль "Hello world"'

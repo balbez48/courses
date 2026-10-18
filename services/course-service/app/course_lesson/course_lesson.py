@@ -14,4 +14,4 @@ class CourseLesson:
         self.homework = homework
 
     def __repr__(self):
-        return f"<CourseLesson id={self.id} title='{self.title}' order={self.order_num}>"
+        return f"<CourseLesson id={self.id} course_id={self.course_id} title='{self.title}' order={self.order_num}>"
