@@ -1,0 +1,28 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: #F6F7FA;
+}
+
+header {
+    background: #fff;
+    border-bottom: 1px solid #E3E6EC;
+}
+
+.sign-in {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 20px;
+    border-radius: 10px;
+    background: #3B4BDB;
+    color: #fff;
+    font: 500 15px Onest, system-ui, sans-serif;
+    border: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
