@@ -6,7 +6,7 @@ class CourseLesson:
                  title: str | None = None, 
                  resource: str | None = None, 
                  homework: str | None = None):
-        self.id = lesson_id
+        self.lesson_id = lesson_id
         self.course_id = course_id
         self.order_num = order_num
         self.title = title
@@ -14,4 +14,4 @@ class CourseLesson:
         self.homework = homework
 
     def __repr__(self):
-        return f"<CourseLesson id={self.id} course_id={self.course_id} title='{self.title}' order={self.order_num}>"
+        return f"<CourseLesson id={self.lesson_id} course_id={self.course_id} title='{self.title}' order={self.order_num}>"
