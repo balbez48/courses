@@ -7,7 +7,7 @@ import uuid
 from states import Enrollment
 
 
-# --- МОДЕЛИ ДАННЫХ (Записи таблиц) ---
+# --- МОДЕЛИ ДАННЫХ (Записи таблиц). ---
 
 @dataclass
 class AuditLog:
