@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320" role="img" aria-labelledby="title desc">
+  <title id="title">Степик — образовательный знак</title>
+  <desc id="desc">Синяя выпускная шапочка над силуэтом ученика и раскрытой книгой. Без текста.</desc>
+  <defs>
+    <linearGradient id="cap" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#168BFF"/>
+      <stop offset="100%" stop-color="#0647B8"/>
+    </linearGradient>
+    <linearGradient id="deep" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1263D0"/>
+      <stop offset="100%" stop-color="#082F80"/>
+    </linearGradient>
+    <linearGradient id="page" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#61B8FF"/>
+      <stop offset="100%" stop-color="#1680EE"/>
+    </linearGradient>
+  </defs>
+  <!-- Graduation cap -->
+  <path d="M45 76 L200 12 L355 76 L200 142 Z" fill="url(#cap)"/>
+  <path d="M83 96 L200 145 L317 96 L317 126 Q200 190 83 126 Z" fill="url(#deep)"/>
+  <path d="M355 76 L355 139" fill="none" stroke="#0647B8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M344 139 Q355 130 366 139 L373 166 Q355 179 337 166 Z" fill="url(#deep)"/>
+  <!-- Student -->
+  <circle cx="200" cy="178" r="27" fill="url(#cap)"/>
+  <path d="M157 231 Q200 198 243 231 L200 278 Z" fill="url(#deep)"/>
+  <!-- Open book pages -->
+  <path d="M25 226 Q93 207 155 247 L200 286 L200 307 Q119 249 43 270 Z" fill="url(#page)"/>
+  <path d="M375 226 Q307 207 245 247 L200 286 L200 307 Q281 249 357 270 Z" fill="url(#page)"/>
+  <path d="M20 267 Q113 244 200 307 Q287 244 380 267 L365 294 Q278 280 200 319 Q122 280 35 294 Z" fill="url(#cap)"/>
+</svg>
