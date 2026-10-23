@@ -1,7 +1,8 @@
-from course_lesson import CourseLesson
+from .models import CourseLesson
+from .repository import LessonRepository
 from psycopg2 import Error
 
-class Record: 
+class Record(LessonRepository): 
     def __init__(self, connect):
         self._conn = connect
 
