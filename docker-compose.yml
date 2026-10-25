@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-  # База данных
   postgres_db:
     image: postgres:15-alpine
     container_name: course_platform_db
@@ -11,16 +10,18 @@ services:
       POSTGRES_DB: course_db
     ports:
       - "5432:5432"
+    volumes:
+    - ./services/course-service/db/courses_init.sql:/docker-entrypoint-initdb.d/01_init.sql
+    - ./services/course-service/db/audit/init.sql:/docker-entrypoint-initdb.d/02_audit_init.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres_user -d course_db"]
       interval: 5s
       timeout: 5s
       retries: 5
 
-  # Твой микросервис с уроками
   course_service:
     build:
-      context: ./services/course-service  # Указываем папку, где лежит Dockerfile и requirements.txt
+      context: ./services/course-service
       dockerfile: Dockerfile
     container_name: course_service_container
     depends_on:
@@ -33,4 +34,4 @@ services:
       DB_PASSWORD: postgres_password
       DB_NAME: course_db
     ports:
-      - "8001:8000" # если там поднят веб-сервер (например, FastAPI)
+      - "8001:8000"

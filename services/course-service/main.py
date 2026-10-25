@@ -5,9 +5,6 @@ from app.course_lesson.repository import LoggingLessonRepository, AuditRepositor
 
 builder = BuilderCourseLesson()
 
-
-
-
 courseId = 101
 while True :
 
