@@ -70,13 +70,12 @@ class CourseManagementFacade:
         Проверяет, есть ли активные слушатели (ENROLLED, IN_PROGRESS).
         Если есть — блокирует удаление. Если нет — удаляет курс и его уроки.
         """
-        # Проверяем наличие активных записей через эмуляцию/вызов enrollment-service
-        active_enrollments = self.enrollment_client.get_active_count(course_id)
+        # На будущее
+        # active_enrollments = self.enrollment_client.get_active_count(course_id)
         
-        if active_enrollments > 0:
-            raise ValueError("Нельзя удалить курс с активными слушателями (статусы ENROLLED или IN_PROGRESS)")
+        # if active_enrollments > 0:
+        #     raise ValueError("Нельзя удалить курс с активными слушателями (статусы ENROLLED или IN_PROGRESS)")
 
-        # Если активных записей нет, удаляем программу и курс
-        self.lesson_repo.delete_by_course(course_id)
-        self.course_repo.delete(course_id)
+        # Удаляем только курс! Благодаря каскадности уроки сами удалятся.
+        self.course_repo.remove_record(course_id)
         return True

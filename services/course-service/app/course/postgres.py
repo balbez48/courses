@@ -7,6 +7,24 @@ class Record(CourseRepository):
     def __init__(self, connect):
         self._conn = connect
 
+    def get_courses(self) -> list[dict]:
+        with self._conn.cursor() as cur:
+            cur.execute("SELECT * FROM courses")
+            columns = [d[0] for d in cur.description]
+            return [dict(zip(columns, row)) for row in cur]
+
+    def courses_filled(self) -> list[dict]:
+        with self._conn.cursor() as cur:
+            cur.execute(
+                """
+                SELECT id, name_course, description, hours, creator, max_capacity
+                FROM courses
+                ORDER BY max_capacity DESC, id
+                """
+            )
+            columns = [d[0] for d in cur.description]
+            return [dict(zip(columns, row)) for row in cur]
+
     def add_record(self, course: Course) -> Course:
         cur = self._conn.cursor()
         try:
