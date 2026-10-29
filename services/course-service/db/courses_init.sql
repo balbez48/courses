@@ -1,14 +1,12 @@
 CREATE TABLE IF NOT EXISTS courses (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
+    name_course VARCHAR(255) NOT NULL,
+    description TEXT,
+    hours INTEGER NOT NULL,
+    creator VARCHAR(128) NOT NULL,
+    max_capacity INTEGER NOT NULL CHECK (max_capacity > 0 AND max_capacity < 51)
 );
 
--- Добавляем тестовый курс с id = 101
-INSERT INTO courses (id, name) 
-VALUES (101, 'Архитектура программного обеспечения') 
-ON CONFLICT (id) DO NOTHING;
-
--- Создаем таблицу уроков
 CREATE TABLE IF NOT EXISTS course_lesson (
     lesson_id SERIAL PRIMARY KEY,
     course_id INTEGER NOT NULL REFERENCES courses (id) ON DELETE CASCADE,
