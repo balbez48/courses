@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
-from typing import Dict, List
-from states import User
+from typing import Callable, Dict, List
+from app.models import User  # User теперь собирается через BuilderUser
 
 
 # --- 1. ШАБЛОН ДЛЯ ПОДПИСЧИКОВ (Интерфейс) ---
@@ -30,7 +30,7 @@ class AuditLogObserver(UserTableObserver):
             "user_id": admin_id,
             "action": f"{action} (role={user.role})",
             "entity_name": "users",
-            "entity_id": user.id,
+            "entity_id": user.user_id,
             "timestamp": datetime.now().isoformat(timespec="seconds"),
         }
         self._next_id += 1
@@ -56,3 +56,21 @@ class EmailNotificationObserver(UserTableObserver):
                 "subject": "Изменение роли в системе",
                 "body": f"Здравствуйте, {user.name}! Ваша новая роль: {user.role}.",
             })
+
+class NewUserBroadcastObserver(UserTableObserver):
+    """При создании пользователя формирует уведомление для всех уже существующих пользователей."""
+
+    def __init__(self, get_all_emails: Callable[[], List[str]]):
+        self._get_all_emails = get_all_emails
+        self.messages: List[Dict[str, str]] = []
+
+    def on_user_changed(self, action: str, user: User, admin_id: int) -> None:
+        if action != "INSERT":
+            return
+        for email in self._get_all_emails():
+            if email != user.email:  # самому новому пользователю уже отправлено приветствие
+                self.messages.append({
+                    "email": email,
+                    "subject": "Новый пользователь в системе",
+                    "body": f"В системе зарегистрирован новый пользователь: {user.name} ({user.role}).",
+                })
