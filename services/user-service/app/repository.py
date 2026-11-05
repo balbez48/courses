@@ -4,7 +4,7 @@ from typing import List, Optional
 from psycopg2 import errors
 
 from app.models import User
-from app.Database import Database
+from db.Database import Database
 
 
 class DuplicateEmailError(Exception):
