@@ -2,6 +2,7 @@ from typing import List, Optional
 from pydantic import BaseModel
 from .models import BuilderCourse
 from app.course_lesson.models import BuilderCourseLesson
+from .enrollment_client import EnrollmentAdapter
 
 
 class LessonData(BaseModel):
@@ -70,7 +71,9 @@ class CourseManagementFacade:
         Проверяет, есть ли активные слушатели (ENROLLED, IN_PROGRESS).
         Если есть — блокирует удаление. Если нет — удаляет курс и его уроки.
         """
-        active_enrollments = self.enrollment_client.get_active_count(course_id)
+
+        adapter = EnrollmentAdapter('http://enrollment_service:8000')
+        active_enrollments = adapter.get_active_count(course_id)
         
         if active_enrollments > 0:
             raise ValueError("Нельзя удалить курс с активными слушателями (статусы ENROLLED или IN_PROGRESS)")

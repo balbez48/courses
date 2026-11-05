@@ -15,3 +15,9 @@ db = Database()
 # @app.get('/enrollments/active-count')
 # def active_count(service: EnrollmentService = Depends(get_service)):
 #     return service.get_active_count()
+
+
+# заглушка чтобы вернуть ответ о количестве записей на курсе
+@app.get('/enrollments/active-count')
+def active_count(course_id: int):
+    return {"count": 0}
