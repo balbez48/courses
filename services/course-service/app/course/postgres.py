@@ -7,6 +7,26 @@ class Record(CourseRepository):
     def __init__(self, connect):
         self._conn = connect
 
+    def course_details(self, course_id: int) -> Course:
+        cur = self._conn.cursor()
+        try:
+            cur.execute(
+                "SELECT id, name_course, description, hours, creator, max_capacity "
+                "FROM courses WHERE id = %s",
+                (course_id,),
+            )
+            row = cur.fetchone()
+            self._conn.commit()
+        except Error:
+            self._conn.rollback()
+            raise
+        finally:
+            cur.close()
+
+        if row is None:
+            raise LookupError(f"(course) id={course_id} не найден")
+        return Course(*row)
+
     def get_courses(self) -> list[dict]:
         with self._conn.cursor() as cur:
             cur.execute("SELECT * FROM courses")

@@ -3,6 +3,10 @@ from .models import Course
 
 class CourseRepository(ABC):
     @abstractmethod
+    def course_details(self, id: int) -> Course:
+        """Метод для получения подробной информации о курсе""" 
+
+    @abstractmethod
     def get_courses(self) -> list[dict]:
         """Метод для получения списка курсов"""
 
@@ -77,6 +81,9 @@ class LoggingCourseRepository(CourseRepository):
     def __init__(self, wrapped: CourseRepository, log_report: AuditRepository):
         self._wrapped = wrapped
         self._log = log_report
+
+    def course_details(self, id: int) -> Course:
+        return self._wrapped.course_details(id)
 
     def get_courses(self) -> list[dict]:
         return self._wrapped.get_courses() 

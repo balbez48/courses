@@ -1,5 +1,3 @@
-
-
 class CourseService:
     def __init__(self, course_facade, course_repo):
         self.course_facade = course_facade
@@ -27,3 +25,10 @@ class CourseService:
         записавшихся в данный момент на курс
         """
         return self.course_repo.courses_filled()
+
+    def get_course_details(self, course_id: int) -> dict:
+        """Получает информацию о курсе"""
+        course = self.course_repo.course_details(course_id)
+        # lessons = self.lesson_repo.get_by_course(course_id)
+        # return {**vars(course), "lessons": [vars(l) for l in lessons]}
+        return {**vars(course)}

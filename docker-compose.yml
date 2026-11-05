@@ -35,3 +35,20 @@ services:
       DB_NAME: course_db
     ports:
       - "8001:8000"
+
+  enrollment_service:
+    build:
+      context: ./services/enrollment-service
+      dockerfile: Dockerfile
+    container_name: enrollment_service_container
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+    environment:
+      DB_HOST: postgres_db
+      DB_PORT: 5432
+      DB_USER: postgres_user
+      DB_PASSWORD: postgres_password
+      DB_NAME: course_db
+    ports:
+      - "8002:8000"

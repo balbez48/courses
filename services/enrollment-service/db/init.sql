@@ -5,5 +5,6 @@ CREATE TABLE enrollments (
     listener_id INT NOT NULL,  -- Внешний ID получаем из listener-service
     course_id INT NOT NULL,    -- Внешний ID получаем из course-service
     enrollment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    finish_date TIMESTAMP DEFAULT NULL,
     status enrollment_status NOT NULL DEFAULT 'ENROLLED'
 );

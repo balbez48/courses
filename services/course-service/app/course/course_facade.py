@@ -26,9 +26,9 @@ class CourseManagementFacade:
     и проверки бизнес-правил перед удалением/изменением.
     """
     def __init__(self, course_repo, lesson_repo, enrollment_client):
-        self.course_repo = course_repo          # Работа с таблицей courses
-        self.lesson_repo = lesson_repo          # Работа с таблицей lessons (CourseLesson)
-        self.enrollment_client = enrollment_client  # Клиент для проверки активных записей в enrollment-service
+        self.course_repo = course_repo
+        self.lesson_repo = lesson_repo
+        self.enrollment_client = enrollment_client
 
     def create_full_course(self, data: CourseCreateData):
         builder_course = BuilderCourse()
@@ -70,12 +70,10 @@ class CourseManagementFacade:
         Проверяет, есть ли активные слушатели (ENROLLED, IN_PROGRESS).
         Если есть — блокирует удаление. Если нет — удаляет курс и его уроки.
         """
-        # На будущее
-        # active_enrollments = self.enrollment_client.get_active_count(course_id)
+        active_enrollments = self.enrollment_client.get_active_count(course_id)
         
-        # if active_enrollments > 0:
-        #     raise ValueError("Нельзя удалить курс с активными слушателями (статусы ENROLLED или IN_PROGRESS)")
+        if active_enrollments > 0:
+            raise ValueError("Нельзя удалить курс с активными слушателями (статусы ENROLLED или IN_PROGRESS)")
 
-        # Удаляем только курс! Благодаря каскадности уроки сами удалятся.
         self.course_repo.remove_record(course_id)
         return True
